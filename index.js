@@ -10,16 +10,16 @@ const reqBody = {
 }
 
 console.log("Create");
-await create('http://jsonplaceholder.typicode.com/posts/', reqBody);
+console.log(await create('http://jsonplaceholder.typicode.com/posts/', reqBody));
 console.log("--------------------");
 console.log("Read");
-await readFromDb('http://jsonplaceholder.typicode.com/posts/1');
+console.log(await readFromDb('http://jsonplaceholder.typicode.com/posts/1'));
 console.log("--------------------");
 console.log("Update");
-await updateDb('http://jsonplaceholder.typicode.com/posts/1', reqBody);
+console.log(await updateDb('http://jsonplaceholder.typicode.com/posts/1', reqBody));
 console.log("--------------------");
 console.log("Delete");
-await deleteFromDb('http://jsonplaceholder.typicode.com/posts/1');
+console.log(await deleteFromDb('http://jsonplaceholder.typicode.com/posts/1'));
 console.log("--------------------");
 
 
