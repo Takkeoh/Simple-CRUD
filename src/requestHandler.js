@@ -42,7 +42,7 @@ function generateOptionRequest(httpVerb, body) {
 
 // /!\ Returns a Promise /!\
 
-function getData(url, method, body=undefined) {
+function sendRequest(url, method, body=undefined) {
     return new Promise((resolve, reject) => {
         fetch(url, generateOptionRequest(method, body))
             .then(response => {
@@ -56,4 +56,4 @@ function getData(url, method, body=undefined) {
     )    
 }
 
-export default getData;
+export default sendRequest;
