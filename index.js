@@ -1,6 +1,6 @@
 import create from "./src/create.js";
 import readFromDb from "./src/read.js";
-import updateDb from "./src/update.js";
+import { updateDbPatch, updateDbPut } from "./src/update.js";
 import deleteFromDb from "./src/delete.js";
 
 const reqBody = {
@@ -15,8 +15,11 @@ console.log("--------------------");
 console.log("Read");
 console.log(await readFromDb('http://jsonplaceholder.typicode.com/posts/1'));
 console.log("--------------------");
-console.log("Update");
-console.log(await updateDb('http://jsonplaceholder.typicode.com/posts/1', reqBody));
+console.log("Update (PATCH)");
+console.log(await updateDbPatch('http://jsonplaceholder.typicode.com/posts/1', reqBody));
+console.log("--------------------");
+console.log("Update (PUT)");
+console.log(await updateDbPut('http://jsonplaceholder.typicode.com/posts/1', reqBody));
 console.log("--------------------");
 console.log("Delete");
 console.log(await deleteFromDb('http://jsonplaceholder.typicode.com/posts/1'));
