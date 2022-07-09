@@ -12,7 +12,7 @@ npm install
 
 ## Usage
 
-To run the server, simply use
+To run the script, simply use
 ```sh
 npm run main
 ```
