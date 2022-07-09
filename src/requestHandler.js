@@ -1,41 +1,51 @@
 import fetch from "node-fetch";
 
-// Supported HTTP Verbs
+// Small class to handle new supported verbs.
+class httpMode {
+    constructor(verb, hasBody = false) {
+        this.verb = verb;
+        this.hasBody = hasBody;
+    }
+}
 
-// TODO: Properly enable people to add more verbs w/ precision if a body is expected or not.
-let verbs = [
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
+// List of supported HTTP Verbs
+let validModes = [
+    new httpMode("GET"),
+    new httpMode("POST", true),
+    new httpMode("PUT", true),
+    new httpMode("PATCH", true),
+    new httpMode("DELETE"),
 ]
 
 // Requests options
 function generateOptionRequest(httpVerb, body) {
-    if (verbs.includes(httpVerb)) {
-        if (httpVerb == "GET" || httpVerb == "DELETE") {
-            if (body != null) {
-                throw new Error(httpVerb + " requests should not have a body. Aborting request.");
-            }
-            return {
-                method: httpVerb,
-            }
+    let mode = validModes.find(mode => mode.verb === httpVerb);
+    if (!mode) {
+        throw new Error("Unsupported type of request.");
+    }
+
+    if (mode.hasBody) {
+        if (body == null) {
+            throw new Error(httpVerb + " requests should have a body. Aborting request.");
         }
-        else {
-            if (body == null) {
-                throw new Error(httpVerb + " requests should have a body. Aborting request.");
-            }
-            return {
-                method: httpVerb,
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            }
+        return {
+            method: httpVerb,
+            body: JSON.stringify(body),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
         }
     }
-    throw new Error("Unsupported type of request.");
+    else {
+        if (body != null) {
+            throw new Error(httpVerb + " requests should not have a body. Aborting request.");
+        }
+
+        return {
+            method: httpVerb,
+        }
+    }
+
 }
 
 // Properly fetch data
